@@ -21,28 +21,6 @@
                 </div>
             </div>
 
-            {{-- <div class="row mb-0 mt-1 pb-0">
-                <div class="col-25">
-                    <label for="style">Apply to</label>
-                </div>
-                <div class="col-75">
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <select name="applyToPatern">
-                                <option value="url">Url </option>
-                                <option value="domain">Domain </option>
-                                <option value="start_with">Start with</option>
-                                <option value="regex">Regular expression </option>
-                            </select>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Write here" id="option" name="applytoText">
-                    </div>
-
-
-                </div>
-            </div> --}}
-
 
             <div class="row mb-0 mt-1 pb-0">
                 <div class="col-25">
@@ -61,12 +39,13 @@
                                 </select>
                             </td>
                             <td row-span="3" class="applyPattern">
-                                <input onkeyup="dataChange()" type="text" class="applyToForm" placeholder="Write here" id="option"
-                                    name="applytoText">
+                                <input onkeyup="dataChange()" type="text" class="applyToForm" placeholder="Write here"
+                                    id="option" name="applytoText">
 
                             </td>
                             <td row-span="1" class="applyBtn">
-                                <button onclick="addRow(this)" type="button" class="addRow applyToForm btn btn-success d-inline"> + </button>
+                                <button onclick="addRow(this)" type="button"
+                                    class="addRow applyToForm btn btn-success d-inline"> + </button>
                             </td>
                         </tr>
                     </table>
@@ -74,58 +53,84 @@
                 </div>
             </div>
 
-<p id="shere"></p>
+            <p id="shere"></p>
 
-        <div class="row mt-0 mb-3 pt-0">
-            <div class="col-25">
-                <label for="flug">Select photo</label>
+            <div class="row mt-0 mb-3 pt-0">
+                <div class="col-25">
+                    <label for="flug">Select photo</label>
+                </div>
+                <div class="col-75 pt-2">
+                    <input type="file" id="photo" name="photo" class="form-control">
+                </div>
             </div>
-            <div class="col-75 pt-2">
-                <input type="file" id="photo" name="photo" class="form-control">
+
+
+            <div class="row my-2">
+                <div class="col-25">
+                    <label for="subject">Styles</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="codearea" name="codearea">
+    /* ==UserStyle==
+    @name        anonymous
+    @namespace      USO Archive
+    @author         {{ auth()->user() }}
+    @description     ''
+    @version       1.0.0
+    @preprocessor     uso
+    ==/UserStyle== */
+
+    @-moz-document url("localhost")  {  
+        /* Styles should start here */
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        /* Styles should end here */
+    } </textarea>
+                </div>
             </div>
-        </div>
-
-
-        <div class="row my-2">
-            <div class="col-25">
-                <label for="subject">Styles</label>
-            </div>
-            <div class="col-75">
-                <textarea id="codearea" name="codearea">
-/* ==UserStyle==
-@name           anonymous
-@namespace      USO Archive
-@author         {{auth()->user()}}
-@description    ''
-@version        1.0.0
-@preprocessor   uso
-==/UserStyle== */
-
-@-moz-document url("roblox.com"), url-prefix("/test"), domain("test.php"), regexp("/sdfasf/g") {  
-    /* Styles should start here */
-    
-
-
-
-    
-    /* Styles should end here */
-} </textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-25">
-            </div>
-            <div class="col-75">
+            <div class="row">
                 <div class="col-25">
                 </div>
-                <div class="col-75 text-right">
-                    <button class="btn btn-dark pull-left my-4 mx-2 py-2 px-5 rounded" type="submit" name="subscription"
-                        value="free">Free</button>
-                    <button class="btn btn-success my-4 mx-2 py-2 px-5 rounded" type="submit" name="subscription"
-                        value="premium">Premium</button>
+                <div class="col-75">
+                    <div class="col-25">
+                    </div>
+                    <div class="col-75 text-right">
+                        <button class="btn btn-dark pull-left my-4 mx-2 py-2 px-5 rounded" type="submit" name="subscription"
+                            value="free">Free</button>
+                        <button class="btn btn-success my-4 mx-2 py-2 px-5 rounded" type="submit" name="subscription"
+                            value="premium">Premium</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 
@@ -237,6 +242,12 @@
         const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
             lineNumbers: true,
             mode: "css",
+            autoCloseTags: true,
+        });
+        codemirrorEditor.setSize("1000", "1200");
+
+        $(".CodeMirror").keyup(function() {
+            styleEdited();
         });
 
     </script>
