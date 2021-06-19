@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/theme/midnight.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/css/css.min.js"></script>
+
+
+</head>
+
+<body>
+    <textarea id="codearea">Welcome </textarea>
+    <button onclick="test()">Save</button>
+    <script type="text/javascript">
+        const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
+            lineNumbers: true,
+            mode: "css",
+            theme: "midnight"
+        });
+
+        function test(){
+            // alert('ok');
+            alert(codemirrorEditor.getValue());
+        }
+    </script>
+</body>
+
+</html>
