@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Query;
+use App\Models\Style;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class FrontendController extends Controller
 {
@@ -15,28 +18,34 @@ class FrontendController extends Controller
 
     public function index()
     {
-        return view('frontend.index');
+        View::share(['styles' => Style::paginate(3)]);
+        return view('frontend.styles');
     }
 
     public function styles()
     {
-        return view('frontend.index');
+        View::share(['styles' => Style::paginate(3)]);
+        return view('frontend.styles');
     }
 
-    public function styleDetails()
+    public function styleDetails(Style $style)
     {
+
+        View::share(['style' => $style, 'suggestion' => Style::latest()->take(8)->where('id', '!=', $style->id)->get()]);
         return view('frontend.details');
     }
 
 
     public function premium()
     {
-        return view('frontend.index');
+        View::share(['styles' => Style::where('subscription', 'premium')->paginate(3)]);
+        return view('frontend.styles');
     }
 
     public function free()
     {
-        return view('frontend.index');
+        View::share(['styles' => Style::where('subscription', 'free')->paginate(3)]);
+        return view('frontend.styles');
     }
 
     public function search()
@@ -53,6 +62,7 @@ class FrontendController extends Controller
     {
         return view('frontend.contact');
     }
+
     public function query(Request $request)
     {
         $query = new Query;
@@ -65,5 +75,18 @@ class FrontendController extends Controller
         Session::flash('message', 'Your query has been received. You will be notified soon.');
 
         return back();
+    }
+
+    public function styleDownload(Request $request, Style $style)
+    {
+
+        $style->downloads++;
+        $style->save();
+
+        $response = Response::make($style->content);
+        $response->header('Content-Type', 'text/css');
+        return $response;
+
+        // return redirect()->back();
     }
 }

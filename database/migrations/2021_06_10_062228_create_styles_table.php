@@ -20,11 +20,13 @@ class CreateStylesTable extends Migration
             $table->string('subscription')->default('free');
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->string('content')->nullable();
+            $table->mediumText('content')->nullable();
+            $table->string('image')->nullable();
             $table->string('url')->nullable();
             $table->string('domain')->nullable();
             $table->string('regex')->nullable();
-            $table->string('startWith')->nullable();
+            $table->string('url-prefix')->nullable();
+            $table->string('downloads')->default(0);
             $table->timestamps();
         });
     }

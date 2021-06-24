@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Style;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class StyleController extends Controller
 {
@@ -36,10 +38,18 @@ class StyleController extends Controller
      */
     public function store(Request $request)
     {
-        $style = new Style;
+        $style = new Style; 
+        $style->name = $request->style;
+        $style->author = Auth::id();
+        $style->subscription = $request->subscription;
+        $style->slug = Str::slug($request->style);
+        $style->content = $request->codearea;
+        if ($request->file('photo') !== null) {
+            $style->image = $request->file('photo')->store('public/screenshot/');
+        }
+        $style->save();
 
-        $style->name = $request->name;
-        $style->subscription =$request->subscription;
+        return redirect()->route('admin.style.edit', $style);
     }
 
     /**
@@ -50,7 +60,7 @@ class StyleController extends Controller
      */
     public function show(Style $style)
     {
-        //
+        return view('admin.style.show')->withStyle($style);
     }
 
     /**
@@ -61,7 +71,7 @@ class StyleController extends Controller
      */
     public function edit(Style $style)
     {
-        //
+        return view('admin.style.edit')->withStyle($style);
     }
 
     /**
@@ -73,7 +83,16 @@ class StyleController extends Controller
      */
     public function update(Request $request, Style $style)
     {
-        //
+        $style->name = $request->style;
+        $style->subscription = $request->subscription;
+        $style->slug = Str::slug($request->style);
+        $style->content = $request->codearea;
+        if ($request->file('photo') !== null) {
+            $style->image = $request->file('photo')->store('public/screenshot/');
+        }
+        $style->save();
+
+        return redirect()->route('admin.style.edit', $style);
     }
 
     /**
@@ -86,4 +105,7 @@ class StyleController extends Controller
     {
         //
     }
+
+
+   
 }

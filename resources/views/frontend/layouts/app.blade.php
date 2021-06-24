@@ -68,10 +68,8 @@
     </div>
 
     <div class="container tm-container-content tm-mt-60">
-
         @yield('content')
-
-    </div> <!-- container-fluid, tm-container-content -->
+    </div>
 
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
         <div class="container tm-container">
@@ -121,7 +119,6 @@
         $(window).on("load", function() {
             $('body').addClass('loaded');
         });
-
     </script>
 </body>
 

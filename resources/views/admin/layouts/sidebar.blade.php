@@ -13,21 +13,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('admin.home')}}" class="nav-link">
+                <a href="{{route('admin.users')}}" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Users
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{route('admin.home')}}" class="nav-link">
                     <i class="nav-icon fa fa-object-group"></i>
                     <p>
                         Packages
                     </p>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a href="{{route('admin.style.index')}}" class="nav-link">
                     <i class="nav-icon fa fa-object-group"></i>

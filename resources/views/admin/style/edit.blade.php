@@ -1,20 +1,21 @@
 @extends('admin.layouts.app')
 
 
-@section('title', 'Create new style')
+@section('title', 'Edit style')
 
-@section('pageTitle', 'Create Style')
+@section('pageTitle', 'Edit Style')
 
 @section('content')
     <div class="p-3">
-        <form action="{{ route('admin.style.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.style.update', $style) }}" method="POST" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
             <div class="row">
                 <div class="col-25">
                     <label for="style">Style Name</label>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="style" name="style" placeholder="Style name..">
+                    <input type="text" id="style" name="style" placeholder="Style name.." value="{{$style->name}}">
                     @error('style')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -70,7 +71,7 @@
                     <label for="subject">Styles</label>
                 </div>
                 <div class="col-75">
-                    <textarea id="codearea" name="codearea"></textarea>
+                    <textarea id="codearea" name="codearea">{{$style->content}}</textarea>
                 </div>
             </div>
             <div class="row">

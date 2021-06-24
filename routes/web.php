@@ -4,6 +4,8 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\StyleController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Style;
+use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,19 +27,24 @@ Route::post('/query', [FrontendController::class, 'query'])->name('query');
 Route::get('/styles/', [FrontendController::class, 'styles'])->name('styles');
 Route::get('/styles/premium', [FrontendController::class, 'premium'])->name('premium');
 Route::get('/styles/free', [FrontendController::class, 'free'])->name('free');
-Route::get('/style/{id}', [FrontendController::class, 'styleDetails'])->name('styleDetails');
+Route::get('/style/{style:slug}', [FrontendController::class, 'styleDetails'])->name('styleDetails');
+
+
+Route::get('/style/download/{style:slug}.user.css', [FrontendController::class, 'styleDownload'])
+    ->name('styleDownload')
+    ->middleware('styleDownload');
 
 
 
 
 Route::group([
     'prefix' => 'admin',
-    'as' => 'admin.'
+    'as' => 'admin.',
+    'middleware' => ['auth', 'admin']
 ], function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('home');
+    Route::get('/', [AdminController::class, 'index'])->name('home');
     Route::resource('/style', StyleController::class);
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
 });
 
 Auth::routes();
